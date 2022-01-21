@@ -14,7 +14,8 @@ steps:
     name: "Check the Scan status"
     command: |
       cd ${OCI_PRIMARY_SOURCE_DIR}
-      echo ${BUILDRUN_HASH}
+      oci vulnerability-scanning container scan result list --compartment-id ${COMPARTMENT_ID} --repository ${REPO_NAME} --image ${BUILDRUN_HASH}
+      
     
     onFailure:
       - type: Command
