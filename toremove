@@ -1,0 +1,38 @@
+ahul@cloudshell:~ (eu-frankfurt-1)$ oci artifacts container image list --compartment-id $cid --repository-name mr-devops-private/image_vuln  --image-version 0.3
+{
+  "data": {
+    "items": [
+      {
+        "compartment-id": "ocid1.compartment.oc1..aaaaaaaawedxxykam2rnegmedvgnjxm4vdkowysyn4kndw3xnu5epw675dza",
+        "digest": "sha256:11367ec5d6bffd29695945d19a065f2ad9092a9e52cc23e0b167042ea328a9c3",
+        "display-name": "mr-devops-private/image_vuln:0.3",
+        "id": "ocid1.containerimage.oc1.eu-frankfurt-1.0.fahdabidiroottenancy.aaaaaaaa57ztn4nrdkucyhizz6uefb3ikc5yyby354spdypgfbkc2aslmkoa",
+        "lifecycle-state": "AVAILABLE",
+        "repository-id": "ocid1.containerrepo.oc1.eu-frankfurt-1.0.fahdabidiroottenancy.aaaaaaaabtau3vgfus4x7vy2okn2ow66boazcoeig3qfi3y3ozrn4nntt3oq",
+        "repository-name": "mr-devops-private/image_vuln",
+        "time-created": "2022-01-20T15:05:02.644000+00:00",
+        "version": "0.3"
+      }
+    ],
+    "remaining-items-count": 0
+  }
+}
+
+rahul@cloudshell:~ (eu-frankfurt-1)$ oci vulnerability-scanning container scan result list --compartment-id $cid --repository mr-devops-private/image_vuln --image 0.3
+{
+  "data": {
+    "items": [
+      {
+        "compartment-id": "ocid1.compartment.oc1..aaaaaaaawedxxykam2rnegmedvgnjxm4vdkowysyn4kndw3xnu5epw675dza",
+        "highest-problem-severity": "CRITICAL",
+        "id": "ocid1.vsscontainerscanresult.oc1..aaaaaaaagdf2mx4prapogbj5pgz365bvpvgbr4w7hqnoddv3yzqridezcmia",
+        "image": "0.3",
+        "problem-count": 119,
+        "repository": "mr-devops-private/image_vuln",
+        "time-finished": "2022-01-20T15:13:48+00:00",
+        "time-started": "2022-01-20T15:13:48+00:00"
+      }
+    ]
+  }
+}
+rahul@cloudshell:~ (eu-frankfurt-1)$ 
