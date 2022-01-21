@@ -8,12 +8,13 @@ env:
   variables:
     key: "value"
 
-- type: Command
+  
+  - type: Command
     timeoutInSeconds: 600
-    name: "Scan check"
+    name: "Check the Scan status"
     command: |
       cd ${OCI_PRIMARY_SOURCE_DIR}
-      echo $BUILDRUN_HASH
+      echo ${BUILDRUN_HASH}
     
     onFailure:
       - type: Command
