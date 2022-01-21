@@ -14,8 +14,14 @@ steps:
     name: "Check the Scan status"
     command: |
       cd ${OCI_PRIMARY_SOURCE_DIR}
-      oci vulnerability-scanning container scan result list --compartment-id ${COMPARTMENT_ID} --repository ${REPO_NAME} --image ${BUILDRUN_HASH}|grep 'highest-problem-severity'
+      scanstatus=`oci vulnerability-scanning container scan result list --compartment-id ${COMPARTMENT_ID} --repository ${REPO_NAME} --image ${BUILDRUN_HASH}|grep 'highest-problem-severity'`
+
+      if [[ ${scanstatus} != "${SCAN_CHECK_BASELINE}" ]]
+      then
+      echo "Found the image as vulnerable"
+      oci vulnerability-scanning container scan result list --compartment-id ${COMPARTMENT_ID} --repository ${REPO_NAME} --image ${BUILDRUN_HASH}
       exit 1
+      fi
     
     onFailure:
       - type: Command
