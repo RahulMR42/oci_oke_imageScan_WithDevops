@@ -1,0 +1,44 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: ${namespace}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-fastapi-app-deployment
+  namespace: ${namespace}
+spec:
+  selector:
+    matchLabels:
+      app: sample-fastapi-app
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: sample-fastapi-app
+    spec:
+      containers:
+        - name: sample-fastapi-app
+          # enter the path to your image, be sure to include the correct region prefix
+          image: <CONTAINER REPO>:${BUILDRUN_HASH}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-fastapi-app-service
+  namespace: ${namespace}
+  annotations: 
+    service.beta.kubernetes.io/oci-load-balancer-shape: "10Mbps"
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: sample-fastapi-app
