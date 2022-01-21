@@ -13,6 +13,7 @@ steps:
     timeoutInSeconds: 600
     name: "Check the Scan status"
     command: |
+      sleep 180
       cd ${OCI_PRIMARY_SOURCE_DIR}
       scanstatus=`oci vulnerability-scanning container scan result list --compartment-id ${COMPARTMENT_ID} --repository ${REPO_NAME} --image ${BUILDRUN_HASH}|grep 'highest-problem-severity'`
 
