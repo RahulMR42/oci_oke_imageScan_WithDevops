@@ -8,7 +8,7 @@ env:
   variables:
     key: "value"
 
-  
+steps:
   - type: Command
     timeoutInSeconds: 600
     name: "Check the Scan status"
