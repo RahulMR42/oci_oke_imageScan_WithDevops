@@ -14,7 +14,7 @@ steps:
     name: "Check the Scan status"
     command: |
       cd ${OCI_PRIMARY_SOURCE_DIR}
-      scanstatus=`oci vulnerability-scanning container scan result list --compartment-id ${COMPARTMENT_ID} --repository ${REPO_NAME} --image ${BUILDRUN_HASH}|grep 'highest-problem-severity'`
+      scanstatus=`oci vulnerability-scanning container scan result list --compartment-id ${COMPARTMENT_ID} --repository ${REPO_NAME} --image ${BUILDRUN_HASH}|grep 'highest-problem-severity'|cut -f 2 -d ':'`
 
       if [[ ${scanstatus} != "${SCAN_CHECK_BASELINE}" ]]
       then
