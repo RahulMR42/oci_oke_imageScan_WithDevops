@@ -22,6 +22,9 @@ steps:
       oci vulnerability-scanning container scan result list --compartment-id ${COMPARTMENT_ID} --repository ${REPO_NAME} --image ${BUILDRUN_HASH}
       exit 1
       fi
+
+      echo "Found the image as secure and clean"
+      oci vulnerability-scanning container scan result list --compartment-id ${COMPARTMENT_ID} --repository ${REPO_NAME} --image ${BUILDRUN_HASH}
     
     onFailure:
       - type: Command
